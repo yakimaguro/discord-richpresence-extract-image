@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <title>icon viewer</title>
+</head>
+<body>
+  <form action="">
+    <input id="input" type="text">
+    <button id="button" type="button">送信</button>
+  </form>
+  <div id="icon">
+    
+  </div>
+  <script>
+    $('#button').click((e) => {
+      let id = $('#input').val()
+      fetch('https://discord.com/api/v9/oauth2/applications/' + id + '/assets')
+        .then((response) => {
+          return response.json()
+        })
+        .then((result) => {
+          result.forEach(element => {
+            $('#icon').append('<img src="https://cdn.discordapp.com/app-assets/' + id + '/' + element.id + '.png">')
+          });
+        })
+        .catch((e) => {
+          console.log(e)
+        })
+    })
+  </script>
+</body>
+</html>
